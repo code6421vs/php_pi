@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors','1');
 include "php_serial.class.php";
 
 // Let's start the class
@@ -6,7 +8,7 @@ $serial = new phpSerial;
 
 // First we must specify the device. This works on both linux and windows (if
 // your linux serial device is /dev/ttyS0 for COM1, etc)
-$serial->deviceSet("ttyAMA0");
+$serial->deviceSet("/dev/ttyAMA0");
 
 // We can change the baud rate, parity, length, stop bits, flow control
 $serial->confBaudRate(19200);
@@ -18,14 +20,18 @@ $serial->confFlowControl("none");
 // Then we need to open it
 $serial->deviceOpen();
 
-// To write into
-$serial->sendMessage("Hello !");
+$rawstr = $_GET["data"];
 
-// Or to read from
-$read = $serial->readPort();
+$c1 = "FF33";
+$c1 .= $rawstr;
+$str = pack("H*", $c1);
+
+// To write into
+$serial->sendMessage($str);
 
 // If you want to change the configuration, the device must be closed
 $serial->deviceClose();
+echo $c1;
 
 //
 //
