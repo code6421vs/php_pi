@@ -24,7 +24,9 @@ $rawstr = $_GET["data"];
 
 $c1 = "FF33";
 $c1 .= $rawstr;
+$c1 .="FF";
 $str = pack("H*", $c1);
+
 
 // To write into
 $serial->sendMessage($str);
