@@ -3,6 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors','1');
 include "php_serial.class.php";
 
+if(empty($_GET)){
+  echo "<p><a href=\"example.php?data=0002000055000000\">Red</a>";
+  echo "<p><a href=\"example.php?data=0002000000550000\">Green</a>";
+  echo "<p><a href=\"example.php?data=0002000000005500\">Blue</a>";
+  exit;
+}
 // Let's start the class
 $serial = new phpSerial;
 
@@ -33,7 +39,11 @@ $serial->sendMessage($str);
 
 // If you want to change the configuration, the device must be closed
 $serial->deviceClose();
-echo $c1;
+
+echo "<p><a href=\"example.php?data=0002000055000000\">Red</a>";
+echo "<p><a href=\"example.php?data=0002000000550000\">Green</a>";
+echo "<p><a href=\"example.php?data=0002000000005500\">Blue</a>";
+
 
 //
 //
